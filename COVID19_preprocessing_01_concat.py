@@ -39,8 +39,37 @@ df = pd.read_csv('./datasets/COVID19_capital.csv', index_col = 0)
 
 print(df.info())
 
+print(type(df.확진일[0]))
 
+'2020.' + df.확진일[0]
 
+df2=[]
+for i in range(len(df['확진일'])):
+    df2.append('2020.' + df['확진일'][i])
+df['확진일자']=df2
+print(df)
 
+del df['확진일']
+print(df)
 
+df[df['확진일자']=='2020.8.2019']
 
+df.loc[2328] =['수원시','경기','2020.8.20']
+print(df.loc[2328])
+
+df[df['확진일자']=='2020.4.13/5.15']
+
+for i in range(0, len(df)):
+    if len(df.iloc[i]['확진일자']) > 5:
+        df.iloc[i]['확진일자'] = df.iloc[i]['확진일자'].split('/')[0]
+print(df)
+
+for i in range(0, len(df)):
+    if len(df.iloc[i]['확진일자']):
+        df.iloc[i]['확진일자'] = df.iloc[i]['확진일자'].replace('202.','')
+
+df['확진일자'] = pd.to_datetime(df['확진일자']) #기존의 Date컬럼이 덮어씌어짐
+
+print(df.head(10))
+
+df.to_csv('./datasets/COVID19_capital.csv')
