@@ -1,29 +1,26 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import pandas as pd
 import datetime
-
-
-# In[3]:
 
 
 df = pd.read_csv('./datasets/COVID19_1.csv', index_col=0)
 print(df)
 
-
-# In[300]:
-
-
 df2 = pd.read_csv('./datasets/COVID19_5.csv', index_col=0)
 print(df2)
 
+df2['지역'] = '인천'
 
-# In[311]:
+df2.to_csv('./datasets/COVID19_2.csv')
 
+df3=pd.read_csv('./datasets/COVID19_2.csv', index_col=0)
+print(df3)
+
+for i in range(0, len(df2)):
+    if len(df2.iloc[i]['확진일']):
+        df2.iloc[i]['확진일'] = df2.iloc[i]['확진일'].replace('2020.','')
+print(df2[350:450])
+
+df2.to_csv('./datasets/COVID19_2.csv')
 
 df = pd.read_csv('./datasets/COVID19_1.csv')
 for i in range(2,4):
@@ -32,20 +29,10 @@ for i in range(2,4):
 df.drop(['Unnamed: 0'], axis=1, inplace=True)
 print(df.loc[4500:5000])
 
-
-# In[312]:
-
-
 print(df.info())
 
 
-# In[313]:
-
-
 df.to_csv('./datasets/COVID19_capital.csv')
-
-
-# In[314]:
 
 
 df = pd.read_csv('./datasets/COVID19_capital.csv', index_col = 0)
@@ -53,7 +40,6 @@ df = pd.read_csv('./datasets/COVID19_capital.csv', index_col = 0)
 print(df.info())
 
 
-# In[ ]:
 
 
 
